@@ -19,7 +19,7 @@ public class MyTestRunner {
          System.out.println(failure.toString());
       }
       
-      System.out.println(result.wasSuccessful());
+      System.out.println("All test passed : " + result.wasSuccessful());
 
       System.out.println("_________________________DONE RUNNING USING MYTESTRUNNER__________________________");   
    }

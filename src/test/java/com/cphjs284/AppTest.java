@@ -131,7 +131,7 @@ public class AppTest {
     }
 
     //Exercise 6
-    //@Test
+    @Test
     public void ThisMightSkibBasedOnRng()throws TestAbortedException{
         boolean rngBool = rng.nextBoolean();
         System.out.println("Value of random bool : " + rngBool);
@@ -144,7 +144,7 @@ public class AppTest {
     }
 
     //Exercise 7 - test always fails due to timeout in slowbank object
-    //@Test  
+    @Test  
     public void DiffAssertions8_MAXduration5Secs(){
         //Assign - done in @Before
         Bank slowBank = new Bank();
@@ -222,14 +222,16 @@ public class AppTest {
         //Assert
         assertEquals("Test string", expectedString,"The strings does not match" );
         assertNotNull(expectedString);
-        assertNotEquals( unexpectedInt, 12, "The numbers match");
 
+        assertNotEquals( unexpectedInt, 12, "The numbers match");
         assertArrayEquals(expectedIntArray, new int[]{1,2,3,4,5},"The Arrays are not equal");
+
         assertTrue( expectedBooleanT,"The statement is false");
         assertFalse( expectedBooleanF,"The statement is true");
+
         assertNotSame(unexpectedInt, expectedString);
         assertNull( nullBank, "Object is not null");
-        //assertThat(reason, myBank, IsInstanceOf(Class<Bank>));
+        
     }
 
     //Exercise 11 see MyTestRunner.java and the repo markdown for instructions
