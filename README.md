@@ -16,7 +16,7 @@ mvn exec:java -Dexec.mainClass="com.cphjs284.MyTestRunner" -Dexec.classpathScope
 mvn exec:java -D"exec.mainClass"="com.cphjs284.MyTestRunner" -D"exec.classpathScope"="test"
 ```
 <br>
-*Please note that the tests might fail when run due to exercise 6 (the randomizer) <br>
+<i>Please note that the tests might fail when run due to exercise 6 (the randomizer)</i> <br>
 Please note that the tests will certainly fail when run due to exercise 7 (the timeout)* <br>
 <br>
 <b>Disable test 6 and 7 to verify successfully</b>
