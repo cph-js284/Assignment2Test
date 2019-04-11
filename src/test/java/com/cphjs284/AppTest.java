@@ -168,7 +168,6 @@ public class AppTest {
 
     //Exercise 8
     @Test
-    @DisplayName("NewNameTest")    
     public void DiffAssertions8_IncludingLambda(){
         //Assign - done in @Before
         
