@@ -1,5 +1,6 @@
 package com.cphjs284;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -11,7 +12,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import java.time.Duration;
 import java.util.Random;
 
-import org.junit.Before;
 
 public class AppTest {
 
@@ -89,12 +89,10 @@ public class AppTest {
         assertEquals(expected, actual, 0.00001);
     }
 
-
     //Exercise 4
     @Test
     public void DiffAssertions8(){
         //Assign - done in @Before
-
         
         //Assert
         assertEquals("Test string", expectedString);
@@ -165,7 +163,6 @@ public class AppTest {
         });
     }
 
-
     //Exercise 8
     @Test
     public void DiffAssertions8_IncludingLambda(){
@@ -190,10 +187,6 @@ public class AppTest {
         assertNotSame(unexpectedInt, expectedString);
         assertNull( nullBank, "Object is not null");
     }
-
-
-
-
 
     //Exercise 9
     @Test
