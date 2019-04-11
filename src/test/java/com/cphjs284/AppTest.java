@@ -19,16 +19,27 @@ public class AppTest {
     public Bank myBank;
     public Bank nullBank;
     public Random rng;
+    String expectedString;
+    int unexpectedInt;
+    int[] expectedIntArray;
+    boolean expectedBooleanT;
+    boolean expectedBooleanF;
+
 
     @Before
     public void SetupRunBeforeEachTest(){
         myBank = new Bank();
         rng = new Random();
-        
+        expectedString = "Test string";
+        unexpectedInt = 34;
+        expectedIntArray = new int[]{1,2,3,4,5};
+        expectedBooleanT = true;
+        expectedBooleanF = false;
     }
 
+    //Exercise 3
     @Test
-    public void CalculeInterestBetween0a100(){
+    public void CalculateInterestBetween0a100(){
         //Assign
         double expected = 45.00 * 0.03;
         account = new Account(45.00);
@@ -38,11 +49,11 @@ public class AppTest {
 
         //Assert
         assertEquals(expected, actual, 0.00001);
-        
     }
 
+    //Exercise 3
     @Test
-    public void CalculeInterestBetween100a1000(){
+    public void CalculateInterestBetween100a1000(){
         //Assign
         double expected = 500 * 0.05;
         account = new Account(500.00);
@@ -52,8 +63,10 @@ public class AppTest {
         //Assert
         assertEquals(expected, actual, 0.00001);
     }
+
+    //Exercise 3
     @Test
-    public void CalculeInterestAbove1000(){
+    public void CalcateleInterestAbove1000(){
         //Assign
         double expected = 1500.00 * 0.07;
         account = new Account(1500.00);
@@ -64,6 +77,7 @@ public class AppTest {
         assertEquals(expected, actual, 0.00001);
     }
 
+    //Exercise 3
     @Test
     public void CalculeInterestBelow0(){
         //Assign
@@ -75,24 +89,15 @@ public class AppTest {
         assertEquals(expected, actual, 0.00001);
     }
 
-//indsæt test for BV. 3 data model for hver ECP.
 
+    //Exercise 4
     @Test
-    @DisplayName("NewNameTest")
     public void DiffAssertions8(){
-        //Assign
-        String expectedString = "Test string";
-        int unexpectedInt = 34;
-        int[] expectedIntArray = new int[]{1,2,3,4,5};
-        boolean expectedBooleanT = true;
-        boolean expectedBooleanF = false;
+        //Assign - done in @Before
 
         
         //Assert
-        assertEquals("Test string", expectedString, () -> {
-            System.out.println("The strings does not match");
-            return "The strings does not match";
-        });
+        assertEquals("Test string", expectedString);
         assertNotNull(expectedString);
 
         assertNotEquals( unexpectedInt, 12, "The numbers match");
@@ -103,22 +108,49 @@ public class AppTest {
 
         assertNotSame(unexpectedInt, expectedString);
         assertNull( nullBank, "Object is not null");
-        //assertThat(reason, myBank, IsInstanceOf(Class<Bank>));
     }
 
+    //Exercise 5
+    @Test
+    @DisplayName("NewNameTest")    
+    public void DiffAssertions8_rename(){
+        //Assign - done in @Before
+        
+        //Assert
+        assertEquals("Test string", expectedString);
+        assertNotNull(expectedString);
 
-    
-    //@Test()  //<- this test will not run if annotation is greyed out - test always fails due to timeout in slowbank object
+        assertNotEquals( unexpectedInt, 12, "The numbers match");
+        assertArrayEquals(expectedIntArray, new int[]{1,2,3,4,5},"The Arrays are not equal");
+
+        assertTrue( expectedBooleanT,"The statement is false");
+        assertFalse( expectedBooleanF,"The statement is true");
+
+        assertNotSame(unexpectedInt, expectedString);
+        assertNull( nullBank, "Object is not null");
+    }
+
+    //Exercise 6
+    //@Test
+    public void ThisMightSkibBasedOnRng()throws TestAbortedException{
+        boolean rngBool = rng.nextBoolean();
+        System.out.println("Value of random bool : " + rngBool);
+        try {
+            assumeTrue(rngBool, "Value of random bool : " + rngBool);    
+            assertEquals("23", "23");
+        } catch (Exception e) {
+            System.out.println("Test skipped due to random");
+        }
+    }
+
+    //Exercise 7 - test always fails due to timeout in slowbank object
+    //@Test  
     public void DiffAssertions8_MAXduration5Secs(){
-        //Assign
-        String expectedString = "Test string";
-        int unexpectedInt = 34;
-        int[] expectedIntArray = new int[]{1,2,3,4,5};
-        boolean expectedBooleanT = true;
-        boolean expectedBooleanF = false;
+        //Assign - done in @Before
         Bank slowBank = new Bank();
         
         assertTimeout(Duration.ofSeconds(5),() ->{
+            // the sleeper is placed inside the method "calculateYearlyInterestSLOW" in the bank class
             double SlowResult = slowBank.calculateYearlyInterestSLOW(account); 
             //Assert
             assertEquals("Test string", expectedString,"The strings does not match" );
@@ -130,42 +162,46 @@ public class AppTest {
             assertFalse( expectedBooleanF,"The statement is true");
             assertNotSame(unexpectedInt, expectedString);
             assertNull( nullBank, "Object is not null");
-            //assertThat(reason, myBank, IsInstanceOf(Class<Bank>));
         });
     }
 
+
+    //Exercise 8
     @Test
-    public void ThisMightSkibBasedOnRng()throws TestAbortedException{
-        boolean rngBool = rng.nextBoolean();
-        System.out.println("Value of random bool : " + rngBool);
-        try {
-            assumeTrue(rngBool, "Value of random bool : " + rngBool);    
-            assertEquals("23", "23");
-        } catch (Exception e) {
-            System.out.println("Test skipped due to random");
-        }
+    @DisplayName("NewNameTest")    
+    public void DiffAssertions8_IncludingLambda(){
+        //Assign - done in @Before
         
-        
-        
+        //Assert
+        //following assert contains lambda
+        assertEquals("Test string", expectedString, () -> {
+            System.out.println("The strings does not match");
+            return "The strings does not match";
+        });
+
+        assertNotNull(expectedString);
+        assertNotNull(expectedString);
+
+        assertNotEquals( unexpectedInt, 12, "The numbers match");
+        assertArrayEquals(expectedIntArray, new int[]{1,2,3,4,5},"The Arrays are not equal");
+
+        assertTrue( expectedBooleanT,"The statement is false");
+        assertFalse( expectedBooleanF,"The statement is true");
+
+        assertNotSame(unexpectedInt, expectedString);
+        assertNull( nullBank, "Object is not null");
     }
 
 
 
 
 
-
-
+    //Exercise 9
     @Test
     public void UsingAssertAllOn8Asserts(){
-        //Assign
-        String expectedString = "Test string";
-        int unexpectedInt = 34;
-        int[] expectedIntArray = new int[]{1,2,3,4,5};
-        boolean expectedBooleanT = true;
-        boolean expectedBooleanF = false;
+        //Assign - done in @Before
 
         //Assert
-        
         assertAll(
             ()->assertEquals("Test string", expectedString,"The strings does not match" ),
             ()->assertNotNull(expectedString),
@@ -178,15 +214,10 @@ public class AppTest {
         );
     }
 
-
+    //Exercise 10 - @Test has been changed to @Disabled
     @Disabled
     public void DISABLED_DiffAssertions8_SameTestsDiffName2() {
-        //Assign
-        String expectedString = "Test string";
-        int unexpectedInt = 34;
-        int[] expectedIntArray = new int[]{1,2,3,4,5};
-        boolean expectedBooleanT = true;
-        boolean expectedBooleanF = false;
+        //Assign - done in @Before
         
         //Assert
         assertEquals("Test string", expectedString,"The strings does not match" );
@@ -200,5 +231,7 @@ public class AppTest {
         assertNull( nullBank, "Object is not null");
         //assertThat(reason, myBank, IsInstanceOf(Class<Bank>));
     }
-    
+
+    //Exercise 11 see MyTestRunner.java and the repo markdown for instructions
+
 }
